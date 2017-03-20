@@ -26,7 +26,7 @@ informações geradas e recebidas pelo serviço sejam geradas e trabalhadas da m
 
 ## OBJETIVO
 O objetivo único deste serviço é disponibilizar informações referentes aos Funcionários do
-sistema Atende.Net®.
+sistema Atende.Net.
 
 ## INSTALAÇÃO
 
@@ -35,7 +35,7 @@ sistema Atende.Net®.
 
 
 
-## Credits
+## CREDITOS
 
 - Rodrigo Traleski <rodrigo@actuary.com.br>
 - Luiz Eduardo Godoy Bueno <luizeduardogodoy@gmail.com>
@@ -44,7 +44,7 @@ sistema Atende.Net®.
 O desenvolvimento desse pacote somente foi possivel devido a contribuição e colaboração da 
 [ACTUARY Ltda](http://www.actuary.com.br/v2/informatica/index.php) 
 
-## License
+## LICENÇA
 
 Este patote está diponibilizado sob LGPLv3, GPLv3 ou MIT License (MIT). Leia  [Arquivo de Licença](LICENSE.md) para maiores informações.
 
