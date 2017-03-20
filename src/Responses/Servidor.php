@@ -68,7 +68,7 @@ class Servidor extends Base
     {
         $ret = [];
         $itens = $dom->getElementsByTagName('item');
-        foreach($itens as $item) {
+        foreach ($itens as $item) {
             $newdoc = new DOMDocument('1.0', 'utf-8');
             $newdoc->appendChild($newdoc->importNode($item, true));
             $xml = $newdoc->saveXML();
@@ -80,7 +80,7 @@ class Servidor extends Base
             //$std = str_replace('@attributes', 'attributes', $std);
             //$std = json_decode($std);
             $ret[] = $std;
-        }    
+        }
         return $ret;
     }
 }
