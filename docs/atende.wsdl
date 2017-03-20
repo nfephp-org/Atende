@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="net.atende" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="net.atende">
+    <types>
+        <xsd:schema targetNamespace="net.atende">
+            <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+            <xsd:complexType name="contato">
+                <xsd:all>
+                    <xsd:element name="tipo" type="xsd:int"/>
+                    <xsd:element name="descricao" type="xsd:string"/>
+                    <xsd:element name="preferencial" type="xsd:boolean" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaContato">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:contato[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoServidor">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="admissao" type="xsd:date"/>
+                    <xsd:element name="rescisao" type="xsd:date" nillable="true"/>
+                    <xsd:element name="afastado" type="xsd:boolean" nillable="true"/>
+                    <xsd:element name="nivel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string" nillable="true"/>
+                    <xsd:element name="classificacaoCentroCusto" type="xsd:string"/>
+                    <xsd:element name="descricaoCentroCusto" type="xsd:string"/>
+                    <xsd:element name="codigoCargo" type="xsd:int"/>
+                    <xsd:element name="descricaoCargo" type="xsd:string"/>
+                    <xsd:element name="professor" type="xsd:boolean" nillable="true"/>
+                    <xsd:element name="inicioPrevidencia" type="xsd:date"/>
+                    <xsd:element name="fundo" type="xsd:int" nillable="true"/>
+                    <xsd:element name="ultimaBaseContribuicao" type="xsd:float"/>
+                    <xsd:element name="tipoAposentadoria" type="xsd:int" nillable="true"/>
+                    <xsd:element name="possuiParidade" type="xsd:boolean" nillable="true"/>
+                    <xsd:element name="inicioMolestiaGrave" type="xsd:date" nillable="true"/>
+                    <xsd:element name="tipoPensao" type="xsd:int" nillable="true"/>
+                    <xsd:element name="relacaoPensao" type="xsd:int" nillable="true"/>
+                    <xsd:element name="numeroMatriculaOrigem" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nomeOrigem" type="xsd:string" nillable="true"/>
+                    <xsd:element name="sexoOrigem" type="xsd:int" nillable="true"/>
+                    <xsd:element name="nascimentoOrigem" type="xsd:date" nillable="true"/>
+                    <xsd:element name="cpfOrigem" type="xsd:string" nillable="true"/>
+                    <xsd:element name="inicioPensao" type="xsd:date" nillable="true"/>
+                    <xsd:element name="nome" type="xsd:string"/>
+                    <xsd:element name="cpf" type="xsd:string"/>
+                    <xsd:element name="rg" type="xsd:string"/>
+                    <xsd:element name="numeroCtps" type="xsd:int"/>
+                    <xsd:element name="serieCtps" type="xsd:int"/>
+                    <xsd:element name="estadoCtps" type="xsd:string"/>
+                    <xsd:element name="pis" type="xsd:string"/>
+                    <xsd:element name="nascimento" type="xsd:date"/>
+                    <xsd:element name="obito" type="xsd:date" nillable="true"/>
+                    <xsd:element name="sexo" type="xsd:int"/>
+                    <xsd:element name="estadoCivil" type="xsd:int"/>
+                    <xsd:element name="pai" type="xsd:string" nillable="true"/>
+                    <xsd:element name="mae" type="xsd:string" nillable="true"/>
+                    <xsd:element name="natural" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nacionalidade" type="xsd:string" nillable="true"/>
+                    <xsd:element name="numeroTituloEleitor" type="xsd:int" nillable="true"/>
+                    <xsd:element name="secaoTituloEleitor" type="xsd:int" nillable="true"/>
+                    <xsd:element name="zonaTituloEleitor" type="xsd:int" nillable="true"/>
+                    <xsd:element name="logradouro" type="xsd:string"/>
+                    <xsd:element name="numero" type="xsd:string"/>
+                    <xsd:element name="complemento" type="xsd:string" nillable="true"/>
+                    <xsd:element name="cep" type="xsd:string"/>
+                    <xsd:element name="bairro" type="xsd:string"/>
+                    <xsd:element name="cidade" type="xsd:string"/>
+                    <xsd:element name="estado" type="xsd:string"/>
+                    <xsd:element name="contato" type="tns:listaContato" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoServidor">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoServidor[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Servidor">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoServidor" type="tns:listaInfoServidor" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ParametrosAvaliacaoAtuarial">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="pagina" type="xsd:int" nillable="true"/>
+                    <xsd:element name="cpf" type="xsd:string" nillable="true"/>
+                    <xsd:element name="numeroMatricula" type="xsd:string" nillable="true"/>
+                    <xsd:element name="tipo" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="contribuicao">
+                <xsd:all>
+                    <xsd:element name="folha" type="xsd:int"/>
+                    <xsd:element name="data" type="xsd:date"/>
+                    <xsd:element name="baseCalculo" type="xsd:float"/>
+                    <xsd:element name="valorFuncionario" type="xsd:float"/>
+                    <xsd:element name="valorEntidade" type="xsd:float"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaContribuicao">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:contribuicao[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoContribuicao">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string"/>
+                    <xsd:element name="contribuicao" type="tns:listaContribuicao" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoContribuicao">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoContribuicao[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Contribuicao">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoContribuicao" type="tns:listaInfoContribuicao" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="verbas">
+                <xsd:all>
+                    <xsd:element name="codigoVerba" type="xsd:int"/>
+                    <xsd:element name="descricaoVerba" type="xsd:string"/>
+                    <xsd:element name="basePrevidencia" type="xsd:boolean" nillable="true"/>
+                    <xsd:element name="classeVerba" type="xsd:int"/>
+                    <xsd:element name="referencia" type="xsd:float"/>
+                    <xsd:element name="valor" type="xsd:float"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaVerbas">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:verbas[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="folhas">
+                <xsd:all>
+                    <xsd:element name="folha" type="xsd:int"/>
+                    <xsd:element name="data" type="xsd:date"/>
+                    <xsd:element name="verbas" type="tns:listaVerbas" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaFolhas">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:folhas[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoContribuicaoAnalitica">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string" nillable="true"/>
+                    <xsd:element name="folhas" type="tns:listaFolhas" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoContribuicaoAnalitica">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoContribuicaoAnalitica[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ContribuicaoAnalitica">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoContribuicaoAnalitica" type="tns:listaInfoContribuicaoAnalitica" nillable="true"/>
+                    <xsd:element name="paginaAtual" type="xsd:int" nillable="true"/>
+                    <xsd:element name="totalPaginas" type="xsd:int" nillable="true"/>
+                    <xsd:element name="totalRegistros" type="xsd:int" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="pessoaDependente">
+                <xsd:all>
+                    <xsd:element name="nome" type="xsd:string"/>
+                    <xsd:element name="cpf" type="xsd:string" nillable="true"/>
+                    <xsd:element name="rg" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nascimento" type="xsd:date"/>
+                    <xsd:element name="sexo" type="xsd:int"/>
+                    <xsd:element name="deficiencia" type="xsd:int"/>
+                    <xsd:element name="parentesco" type="xsd:int"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaPessoaDependente">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:pessoaDependente[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoDependente">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string" nillable="true"/>
+                    <xsd:element name="pessoaDependente" type="tns:listaPessoaDependente" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoDependente">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoDependente[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Dependentes">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoDependente" type="tns:listaInfoDependente" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="instituicoes">
+                <xsd:all>
+                    <xsd:element name="instituicao" type="xsd:string"/>
+                    <xsd:element name="admissao" type="xsd:date"/>
+                    <xsd:element name="saida" type="xsd:date"/>
+                    <xsd:element name="origem" type="xsd:int"/>
+                    <xsd:element name="regime" type="xsd:int"/>
+                    <xsd:element name="magisterio" type="xsd:boolean"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInstituicoes">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:instituicoes[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoTempoContribuicao">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string" nillable="true"/>
+                    <xsd:element name="instituicoes" type="tns:listaInstituicoes" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoTempoContribuicao">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoTempoContribuicao[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="TempoContribuicao">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoTempoContribuicao" type="tns:listaInfoTempoContribuicao" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="afastamento">
+                <xsd:all>
+                    <xsd:element name="codigoMotivo" type="xsd:int"/>
+                    <xsd:element name="descricaoMotivo" type="xsd:string"/>
+                    <xsd:element name="inicio" type="xsd:date"/>
+                    <xsd:element name="final" type="xsd:date"/>
+                    <xsd:element name="cid" type="xsd:string" nillable="true"/>
+                    <xsd:element name="nomeMedico" type="xsd:string" nillable="true"/>
+                    <xsd:element name="crmMedico" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaAfastamento">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:afastamento[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="infoAfastamento">
+                <xsd:all>
+                    <xsd:element name="numeroMatricula" type="xsd:string"/>
+                    <xsd:element name="tipoContrato" type="xsd:int"/>
+                    <xsd:element name="codigoRegime" type="xsd:int" nillable="true"/>
+                    <xsd:element name="descricaoRegime" type="xsd:string" nillable="true"/>
+                    <xsd:element name="afastamento" type="tns:listaAfastamento" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="listaInfoAfastamento">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:infoAfastamento[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Afastamento">
+                <xsd:all>
+                    <xsd:element name="codigoCliente" type="xsd:int"/>
+                    <xsd:element name="mesAno" type="xsd:int"/>
+                    <xsd:element name="infoAfastamento" type="tns:listaInfoAfastamento" nillable="true"/>
+                    <xsd:element name="paginaAtual" type="xsd:int" nillable="true"/>
+                    <xsd:element name="totalPaginas" type="xsd:int" nillable="true"/>
+                    <xsd:element name="totalRegistros" type="xsd:int" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="getServidorRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getServidorResponse">
+        <part name="return" type="tns:Servidor"/>
+    </message>
+    <message name="getContribuicaoRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getContribuicaoResponse">
+        <part name="return" type="tns:Contribuicao"/>
+    </message>
+    <message name="getContribuicaoAnaliticaRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getContribuicaoAnaliticaResponse">
+        <part name="return" type="tns:ContribuicaoAnalitica"/>
+    </message>
+    <message name="getDependentesRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getDependentesResponse">
+        <part name="return" type="tns:Dependentes"/>
+    </message>
+    <message name="getTempoContribuicaoRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getTempoContribuicaoResponse">
+        <part name="return" type="tns:TempoContribuicao"/>
+    </message>
+    <message name="getAfastamentoRequest">
+        <part name="parametro" type="tns:ParametrosAvaliacaoAtuarial"/>
+    </message>
+    <message name="getAfastamentoResponse">
+        <part name="return" type="tns:Afastamento"/>
+    </message>
+    <portType name="WFPAtuarialPadraoIPMPortType">
+        <operation name="getServidor">
+            <documentation></documentation>
+            <input message="tns:getServidorRequest"/>
+            <output message="tns:getServidorResponse"/>
+        </operation>
+        <operation name="getContribuicao">
+            <documentation></documentation>
+            <input message="tns:getContribuicaoRequest"/>
+            <output message="tns:getContribuicaoResponse"/>
+        </operation>
+        <operation name="getContribuicaoAnalitica">
+            <documentation></documentation>
+            <input message="tns:getContribuicaoAnaliticaRequest"/>
+            <output message="tns:getContribuicaoAnaliticaResponse"/>
+        </operation>
+        <operation name="getDependentes">
+            <documentation></documentation>
+            <input message="tns:getDependentesRequest"/>
+            <output message="tns:getDependentesResponse"/>
+        </operation>
+        <operation name="getTempoContribuicao">
+            <documentation></documentation>
+            <input message="tns:getTempoContribuicaoRequest"/>
+            <output message="tns:getTempoContribuicaoResponse"/>
+        </operation>
+        <operation name="getAfastamento">
+            <documentation></documentation>
+            <input message="tns:getAfastamentoRequest"/>
+            <output message="tns:getAfastamentoResponse"/>
+        </operation>
+    </portType>
+    <binding name="WFPAtuarialPadraoIPMBinding" type="tns:WFPAtuarialPadraoIPMPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getServidor">
+            <soap:operation soapAction="net.atende#getServidor" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getContribuicao">
+            <soap:operation soapAction="net.atende#getContribuicao" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getContribuicaoAnalitica">
+            <soap:operation soapAction="net.atende#getContribuicaoAnalitica" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getDependentes">
+            <soap:operation soapAction="net.atende#getDependentes" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getTempoContribuicao">
+            <soap:operation soapAction="net.atende#getTempoContribuicao" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getAfastamento">
+            <soap:operation soapAction="net.atende#getAfastamento" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="net.atende" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="WFPAtuarialPadraoIPM">
+        <port name="WFPAtuarialPadraoIPMPort" binding="tns:WFPAtuarialPadraoIPMBinding">
+            <soap:address location="https://qualidadeatendenet56.ipm.com.br/rh04/atende.php?pg=services&amp;service=WFPAtuarialPadraoIPM&amp;cidade=paranagua"/>
+        </port>
+    </service>
+</definitions>

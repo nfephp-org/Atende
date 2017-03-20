@@ -1,0 +1,48 @@
+{
+    "name": "nfephp-org/atende",
+    "type": "library",
+    "description": "API para geração e comunicação com o sistema AtendeNet.",
+    "keywords": ["atendenet","actuary"],
+    "homepage": "http://www.actuary.com.br",
+    "license": ["GPL-3.0+","LGPL-3.0+", "MIT"],
+    "authors": [
+        {
+            "name": "Roberto L. Machado",
+            "email": "linux.rlm@gmail.com.br",
+            "role": "Developer"
+        },
+        {
+            "name": "Rodrigo Traleski",
+            "email": "rodrigo@actuary.com.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.6|~7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.6",
+        "phpunit/phpunit": "^5.7",
+        "scrutinizer/ocular": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "NFePHP\\Atende\\": "src/"
+        } 
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NFePHP\\Atende\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "v0.1": "0.1-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
+
