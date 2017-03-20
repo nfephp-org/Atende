@@ -443,7 +443,7 @@ class Atende
                 $action,
                 $txtheaders . "\n" . $envelope,
                 $responseHead . "\n" . $responseBody,
-                $this->debugmode    
+                $this->debugmode
             );
         } catch (Exception $e) {
             throw new \RuntimeException($e->getMessage());

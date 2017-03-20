@@ -13,7 +13,7 @@ class Contato extends Base
     {
         $contatos = $node->getElementsByTagName('contato')->item(0);
         $itens = $contato->getElementsByTagName('item');
-        foreach($itens as $item) {
+        foreach ($itens as $item) {
             $std = new stdClass();
             self::getChilds($item, $std);
             $ret[] = $std;

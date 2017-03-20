@@ -39,7 +39,7 @@ class Response
     {
         $ret = [];
         $itens = $dom->getElementsByTagName($nodename);
-        foreach($itens as $item) {
+        foreach ($itens as $item) {
             if ($item->childNodes->length >= $min) {
                 $newdoc = new DOMDocument('1.0', 'utf-8');
                 $newdoc->appendChild($newdoc->importNode($item, true));
@@ -56,7 +56,7 @@ class Response
             if (count($ret) > 9) {
                 break;
             }
-        }    
+        }
         return $ret;
     }
 }
