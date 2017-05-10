@@ -2,7 +2,7 @@
 
 **API PHP para integração com o [Sistema Aturial AtendeNet Padrão IPM](https://www.ipm.com.br/ipm-sistemas/atende-net/)**
 
-*Atende* é um framework que permite a integração de um aplicativo com os 
+*Atende* é um framework em PHP, que permite a integração de um aplicativo com os 
 serviços dos webservices providos pelo Sistema AtendeNet, realizando a montagem 
 das mensagens SOAP.
 
@@ -44,6 +44,14 @@ Ou colocando como dependência diretamente no composer.json do seu aplicativo:
     },
 ```
 
+## DEPENDÊNCIAS
+
+- PHP >= 5.6 (preferencialmente 7.0 ou maior)
+- *php-curl* CURL module for PHP
+- *php-xml* DOM, SimpleXML, WDDX, XML, and XSL module for PHP
+- *php-json* JSON module for PHP
+- *php-zlib* CORE DEFAULT
+- *php-date* CORE DEFAULT
 
 ## USO
 
