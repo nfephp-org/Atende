@@ -59,7 +59,7 @@ Este patote está diponibilizado sob LGPLv3, GPLv3 ou MIT License (MIT). Leia  [
 [ico-license]: https://poser.pugx.org/nfephp-org/atende/license.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/nfephp-org/atende
-[link-travis]: https://travis-ci.org/nfephp-org/Atende
+[link-travis]: https://travis-ci.org/nfephp-org/atende
 [link-scrutinizer]: https://scrutinizer-ci.com/g/nfephp-org/atende/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/nfephp-org/atende
 [link-downloads]: https://packagist.org/packages/nfephp-org/atende
