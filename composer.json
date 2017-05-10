@@ -40,9 +40,9 @@
     },
     "extra": {
         "branch-alias": {
-            "v0.1": "0.1-dev"
+            "v0.1.x": "0.1.x-dev"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
 
