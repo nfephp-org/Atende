@@ -8,41 +8,67 @@ require_once '../bootstrap.php';
  * pode ser ENORMES e causar TIMEOUT ou até impossibilitar a visualização pelo
  * browser
  */
-
 use NFePHP\Atende\Atende;
+use NFePHP\Atende\Response;
 
 $user = '<coloque sua identificação>';
 $password = '<coloque sua senha>';
 $cidade = '<nome da cidade>';
+$codcidade = '<codigo>';
 
+//NOTA: em caso de falha será disparado um exception
 try {
-    $codigoCliente = 0; //indique o numero do municipio
-    $mesAno = 201612;
-    $pagina = 1;
-    $cpf = '<indique o cpf>'; //o CPF é formatado
+    $anomes = 201612; //indique a competência (OBRIGATÓRIO) formato aaamm
+    $pagina = null; //(OPCIONAL)
+    $cpf = '<indique o cpf>'; //o CPF é formatado (OPCIONAL)
     $numeroMatricula = null;
-    $tipo = 1;
-    $codigoRegime = 2;
-    
-    $at = new Atende($user, $password, $cidade);
+    $tipo = 1;//(OPCIONAL)
+    $codigoRegime = 2;//(OPCIONAL)
+
+    $at = new Atende($user, $password, $cidade, $codcidade);
+    //seta o anbiente 1-produção 2-homologacao
+    $at->setAmbiente(2);
+    //ativa debug USAR APENAS durante o desenvolvimento
     $at->setDebugMode(true);
+    //define o tempo de timeout 
+    //CUIDADO com esse numero deverá ser compativel com o limite 
+    //de execução do PHP (ver. php.ini)
     $at->setSoapTimeOut(100);
 
+    //NOTA: $resp irá conter o envelope SOAP retornado
     $resp = $at->getDependentes(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina,
         $cpf,
         $numeroMatricula,
         $tipo,
         $codigoRegime
     );
+
+    //$json conterá os dados de retorno em uma string json
+    $json = Response::toJson($xml);
+    //echo "<pre>";
+    //print_r($resp);
+    //echo "</pre>";
+
+
+    //$arr conterá os dados de retorno em um array
+    $arr = Response::toArray($xml);
+    //echo "<pre>";
+    //print_r($resp);
+    //echo "</pre>";
+
+    //$std conterá os dados de retorno em um stdClass
+    $std = Response::toStd($xml);
+    //echo "<pre>";
+    //print_r($resp);
+    //echo "</pre>";
+
     header('Content-type: text/xml; charset=UTF-8');
     echo $resp;
-    
+
 } catch (\RuntimeException $e) {
     echo $e->getMessage();
 } catch (\Exception $e) {
     echo $e->getMessage();
-}   
-
+}

@@ -1,62 +1,87 @@
 <?php
 
-
 namespace NFePHP\Atende;
 
-/**
- * Não use, codigo em desenvolvimento !!
- */
-
 use DOMDocument;
-use Actuary\Atende\Responses\Servidor;
+use DOMElement;
+use stdClass;
 
 class Response
 {
-    public static function toStd($action, $xml)
+    /**
+     * Convert Atende xml response to stdClass
+     * @param string $xml
+     * @return stdClass
+     */
+    public static function toStd($xml)
     {
+        return json_decode(self::select($xml));
+    }
+    
+    /**
+     * Convert Atende xml response to array
+     * @param string $xml
+     * @return array
+     */
+    public static function toArray($xml)
+    {
+        return json_decode(self::select($xml), true);
+    }
+    
+    /**
+     * Convert Atende xml response to json string
+     * @param string $xml
+     * @return string
+     */
+    public static function toJson($xml)
+    {
+        return self::select($xml);
+    }
+    
+    /**
+     * Identify and convert xml
+     * @param string $xml
+     * @return string
+     */
+    protected static function select($xml)
+    {
+        $infolist = [
+            'infoServidor',
+            'infoDependente',
+            'infoContribuicao',
+            'infoContribuicaoAnalitica',
+            'infoContribuicao',
+            'infoTempoContribuicao'
+        ];
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = false;
         $dom->loadXML($xml);
-        switch ($action) {
-            case 'getServidor':
-                return self::render($dom, 'item', 53);
-                break;
-            case 'getDependentes':
-                return self::render($dom, 'item', 53);
-                break;
-            case 'getContribuicao':
-                break;
-            case 'getContribuicaoAnalitica':
-                break;
-            case 'getAfastamento':
-                break;
-            case 'getTempoContribuicao':
-                break;
+        foreach ($infolist as $item) {
+            $node = null;
+            $node = $dom->getElementsByTagName($item)->item(0);
+            if (!empty($node)) {
+                return self::render($node);
+            }
         }
     }
     
-    public static function render(DOMDocument $dom, $nodename, $min = 0)
+    /**
+     * Renderize DOMElement do json string
+     * @param DOMElement $node
+     * @return string
+     */
+    protected static function render(DOMElement $node)
     {
-        $ret = [];
-        $itens = $dom->getElementsByTagName($nodename);
-        foreach ($itens as $item) {
-            if ($item->childNodes->length >= $min) {
-                $newdoc = new DOMDocument('1.0', 'utf-8');
-                $newdoc->appendChild($newdoc->importNode($item, true));
-                $xml = $newdoc->saveXML();
-                $newdoc = null;
-                $xml = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $xml);
-                $xml = str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $xml);
-                $resp = simplexml_load_string($xml, null, LIBXML_NOCDATA);
-                $std = json_encode($resp, JSON_PRETTY_PRINT);
-                //$std = str_replace('@attributes', 'attributes', $std);
-                $std = json_decode($std);
-                $ret[] = $std;
-            }
-            if (count($ret) > 9) {
-                break;
-            }
-        }
-        return $ret;
+        $newdoc = new DOMDocument('1.0', 'utf-8');
+        $newdoc->appendChild($newdoc->importNode($node, true));
+        $xml = $newdoc->saveXML();
+        $newdoc = null;
+        $xml = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $xml);
+        $xml = str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $xml);
+        $resp = simplexml_load_string($xml, null, LIBXML_NOCDATA);
+        $json = json_encode($resp, JSON_PRETTY_PRINT);
+        $json = str_replace('@attributes', 'attributes', $json);
+        $std = json_decode($json);
+        return str_replace('{}', '""', json_encode($std, JSON_PRETTY_PRINT));
     }
 }
