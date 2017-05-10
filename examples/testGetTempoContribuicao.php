@@ -36,8 +36,8 @@ try {
     //de execução do PHP (ver. php.ini)
     $at->setSoapTimeOut(100);
 
-    //NOTA: $resp irá conter o envelope SOAP retornado
-    $resp = $at->getTempoContribuicao(
+    //NOTA: $xml irá conter o envelope SOAP retornado
+    $xml = $at->getTempoContribuicao(
         $anomes,
         $pagina,
         $cpf,
@@ -49,24 +49,24 @@ try {
     //$json conterá os dados de retorno em uma string json
     $json = Response::toJson($xml);
     //echo "<pre>";
-    //print_r($resp);
+    //print_r($json);
     //echo "</pre>";
 
 
     //$arr conterá os dados de retorno em um array
     $arr = Response::toArray($xml);
     //echo "<pre>";
-    //print_r($resp);
+    //print_r($arr);
     //echo "</pre>";
     
     //$std conterá os dados de retorno em um stdClass
     $std = Response::toStd($xml);
     //echo "<pre>";
-    //print_r($resp);
+    //print_r($std);
     //echo "</pre>";
 
     header('Content-type: text/xml; charset=UTF-8');
-    echo $resp;
+    echo $xml;
 
 } catch (\RuntimeException $e) {
     echo $e->getMessage();
