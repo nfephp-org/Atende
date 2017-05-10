@@ -27,7 +27,7 @@ try {
     $codigoRegime = null;//1-CLTista; 2-Estaturário (OPCIONAL)
     
     $at = new Atende($user, $password, $cidade, $codcidade);
-    //seta o anbiente 1-produção 2-homologacao
+    //seta o ambiente 1-produção 2-homologacao
     $at->setAmbiente(2);
     //ativa debug USAR APENAS durante o desenvolvimento
     $at->setDebugMode(true);
