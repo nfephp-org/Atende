@@ -1,10 +1,10 @@
 # Atende
 
-**API PHP para integração com o Sistema Aturial AtendeNet Padrão IPM**
+**API PHP para integração com o [Sistema Aturial AtendeNet Padrão IPM](https://www.ipm.com.br/ipm-sistemas/atende-net/)**
 
 *Atende* é um framework que permite a integração de um aplicativo com os 
-serviços dos webservices providos pelo Sistema AtendeNet, realizando a montagem
- das mensagens SOAP da Prefeitura de Paranaguá.
+serviços dos webservices providos pelo Sistema AtendeNet, realizando a montagem 
+das mensagens SOAP.
 
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
@@ -30,9 +30,33 @@ sistema Atende.Net.
 
 ## INSTALAÇÃO
 
+A API pode ser instalada por linha de comando com o composer
+
+```
+composer require nfephp-org/atende
+```
+
+Ou colocando como dependência diretamente no composer.json do seu aplicativo:
+
+```json
+    "require": {
+        "nfephp-org/atende" : "^0.1"
+    },
+```
+
 
 ## USO
 
+Para usar você pode ver os exemplos na pasta exemples.
+
+O Atende.Net tem 6 processos possíveis, exemplificados abaixo:
+
+1. [Lista Afastamentos](examples/testGetAfastamento.php)
+2. [Lista Dependentes](examples/testGetDependentes.php
+3. [Lista Contribuições Analitica](examples/testGetContribuicaoAnalitica.php
+4. [Lista Servidores](examples/testGetServidor.php
+5. [Lista Contribuições](examples/testGetContribuicao.php
+6. [Lista Tempo de Contribuição](examples/testGetTempoContribuicao.php
 
 
 ## CREDITOS
