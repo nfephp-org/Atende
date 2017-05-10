@@ -58,14 +58,18 @@ class Atende
      * @param string $user
      * @param string $password
      * @param string $cidade
-     * @param string $codcidade
+     * @param int $codcidade
      */
     public function __construct($user, $password, $cidade, $codcidade)
     {
-        $this->user = $user;
-        $this->password = $password;
-        $this->cidade = $cidade;
+        $this->user = trim($user);
+        $this->password = trim($password);
+        $this->cidade = strtolower(trim($cidade));
         $this->codcidade = $codcidade;
+        if (empty($this->user) || empty($this->password)) {
+            throw new RuntimeException("A identificação do usuário e a "
+                . "senha são obrigatórios.");
+        }
     }
     
     /**

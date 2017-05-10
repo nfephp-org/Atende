@@ -22,8 +22,8 @@ try {
     $pagina = null; //(OPCIONAL)
     $cpf = '<indique o cpf>'; //o CPF é formatado (OPCIONAL)
     $numeroMatricula = null;
-    $tipo = 1;//(OPCIONAL)
-    $codigoRegime = 2;//(OPCIONAL)
+    $tipo = null;//1-Ativo; 2-Aposentado; 3-Pensionista. (OPCIONAL)
+    $codigoRegime = null;//1-CLTista; 2-Estaturário (OPCIONAL)
 
     $at = new Atende($user, $password, $cidade, $codcidade);
     //seta o anbiente 1-produção 2-homologacao
