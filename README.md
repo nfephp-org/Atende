@@ -51,7 +51,7 @@ Este patote está diponibilizado sob LGPLv3, GPLv3 ou MIT License (MIT). Leia  [
 [ico-stars]: https://img.shields.io/github/stars/nfephp-org/atende.svg?style=flat-square
 [ico-forks]: https://img.shields.io/github/forks/nfephp-org/atende.svg?style=flat-square
 [ico-issues]: https://img.shields.io/github/issues/nfephp-org/atende.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/nfephp-org/atende/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/nfephp-org/Atende/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/nfephp-org/atende.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/nfephp-org/atende.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/nfephp-org/atende.svg?style=flat-square

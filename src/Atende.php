@@ -2,6 +2,7 @@
 
 namespace NFePHP\Atende;
 
+use Exception;
 use RuntimeException;
 
 class Atende
@@ -14,24 +15,35 @@ class Atende
      * @var string
      */
     protected $password;
-    
+    /**
+     * @var int
+     */
+    protected $tpAmb = 2;
     /**
      * @var string
      */
-    private $soaperror;
+    protected $soaperror;
     /**
      * @var string
      */
-    private $soapinfo;
-    
+    protected $soapinfo;
     /**
      * @var string
      */
-    public $url = "https://qualidadeatendenet56.ipm.com.br/rh04/atende.php?pg=services&service=WFPAtuarialPadraoIPM";
+    public $url = [
+        1 => "https://{city}.atende.net/atende.php?pg=services"
+            . "&service=WFPAtuarialPadraoIPM&cidade=padrao",
+        2 => "https://qualidadeatendenet56.ipm.com.br/rh04/atende.php"
+            . "?pg=services&service=WFPAtuarialPadraoIPM&cidade={city}"
+    ];
     /**
      * @var string
      */
-    public $cidade = '';
+    public $cidade = 'paranagua';
+    /**
+     * @var int
+     */
+    public $codcidade = 3037;
     /**
      * @var int
      */
@@ -46,18 +58,31 @@ class Atende
      * @param string $user
      * @param string $password
      * @param string $cidade
-     * @param string $url
+     * @param int $codcidade
      */
-    public function __construct($user, $password, $cidade, $url = null)
+    public function __construct($user, $password, $cidade, $codcidade)
     {
-        $this->user = $user;
-        $this->password = $password;
-        if (!empty($url)) {
-            $this->url = $url;
+        $this->user = trim($user);
+        $this->password = trim($password);
+        $this->cidade = strtolower(trim($cidade));
+        $this->codcidade = $codcidade;
+        if (empty($this->user) || empty($this->password)) {
+            throw new RuntimeException("A identificação do usuário e a "
+                . "senha são obrigatórios.");
         }
-        if (!empty($cidade)) {
-            $this->cidade = $cidade;
+    }
+    
+    /**
+     * Set environment 2 to tests and 1 to production
+     * @param int $tpAmb
+     * @return int
+     */
+    public function setAmbiente($tpAmb = null)
+    {
+        if (!empty($tpAmb) && ($tpAmb == 1 || $tpAmb == 2)) {
+            $this->tpAmb = $tpAmb;
         }
+        return $this->tpAmb;
     }
     
     /**
@@ -68,7 +93,10 @@ class Atende
      */
     public function setDebugMode($flag = true)
     {
-        $this->debugmode = $flag;
+        if (!empty($flag)) {
+            $this->debugmode = $flag;
+        }
+        return $this->debugmode;
     }
     
     /**
@@ -78,7 +106,10 @@ class Atende
      */
     public function setSoapTimeOut($sec = 10)
     {
-        $this->soaptimeout = $sec;
+        if (!empty($sec)) {
+            $this->soaptimeout = $sec;
+        }
+        return $this->soaptimeout;
     }
     
     /**
@@ -86,8 +117,7 @@ class Atende
      * Retorna os dados dos afastamentos de um ou mais funcionários
      * cadastrados no módulo da Folha de Pagamento do sistema Atende.Net.
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -95,8 +125,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getAfastamento(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -106,8 +135,7 @@ class Atende
         $action = "getAfastamento";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -123,8 +151,7 @@ class Atende
      * Retorna os dados das bases de pagamento de um ou mais funcionários
      * cadastrados no módulo da Folha de Pagamento do sistema Atende.Net
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -132,8 +159,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getContribuicao(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -143,8 +169,7 @@ class Atende
         $action = "getContribuicao";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -161,8 +186,7 @@ class Atende
      * cadastrados no módulo da Folha de Pagamento do sistema Atende.Net
      * especificando verbas, referências e valores.
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -170,8 +194,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getContribuicaoAnalitica(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -181,8 +204,7 @@ class Atende
         $action = "getContribuicaoAnalitica";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -198,8 +220,7 @@ class Atende
      * Retorna os dados dos dependentes dos funcionários e do relacionamento
      * de dependência no sistema Atende.Net.
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -207,8 +228,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getDependentes(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -218,8 +238,7 @@ class Atende
         $action = "getDependentes";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -240,8 +259,7 @@ class Atende
      * Funcionário x Pensão do tipo "Por Morte" trará também os dados do
      * funcionário falecido.
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -249,8 +267,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getServidor(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -260,8 +277,7 @@ class Atende
         $action = "getServidor";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -278,8 +294,7 @@ class Atende
      * Retorna os dados dos tempos de contribuição anteriores dos funcionários
      * cadastrados no sistema Atende.Net
      *
-     * @param int $codigoCliente
-     * @param int $mesAno
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -287,8 +302,7 @@ class Atende
      * @param int $codigoRegime
      */
     public function getTempoContribuicao(
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -298,8 +312,7 @@ class Atende
         $action = "getTempoContribuicao";
         $message = $this->build(
             $action,
-            $codigoCliente,
-            $mesAno,
+            $anomes,
             $pagina,
             $cpf,
             $numeroMatricula,
@@ -312,9 +325,9 @@ class Atende
     
     /**
      * Build message content
-     * @param string $action
-     * @param int $codigoCliente
-     * @param int $mesAno
+     *
+     * @param string $action (OBRIGATÓRIO)
+     * @param int $anomes (OBRIGATÓRIO) ex. 201612
      * @param int $pagina
      * @param string $cpf
      * @param string $numeroMatricula
@@ -324,8 +337,7 @@ class Atende
      */
     protected function build(
         $action,
-        $codigoCliente,
-        $mesAno,
+        $anomes,
         $pagina = null,
         $cpf = null,
         $numeroMatricula = null,
@@ -335,8 +347,8 @@ class Atende
         $message = "<net:$action "
         . "soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
         . "<parametro xsi:type=\"net:ParametrosAvaliacaoAtuarial\">"
-        . "<codigoCliente xsi:type=\"xsd:int\">$codigoCliente</codigoCliente>"
-        . "<mesAno xsi:type=\"xsd:int\">$mesAno</mesAno>";
+        . "<codigoCliente xsi:type=\"xsd:int\">$this->codcidade</codigoCliente>"
+        . "<mesAno xsi:type=\"xsd:int\">$anomes</mesAno>";
         if (!empty($pagina)) {
             $message .= "<pagina xsi:type=\"xsd:int\">$pagina</pagina>";
         }
@@ -388,30 +400,26 @@ class Atende
         ];
         
         $txtheaders = implode("\n", $headers);
-        $url = $this->url . "&cidade=$this->cidade";
+        $url = $this->url[$this->tpAmb];
+        $url = str_replace("{city}", $this->cidade, $url);
 
         try {
             $oCurl = curl_init();
-            
             curl_setopt($oCurl, CURLOPT_URL, $url);
             curl_setopt($oCurl, CURLOPT_CONNECTTIMEOUT, $this->soaptimeout);
             curl_setopt($oCurl, CURLOPT_TIMEOUT, $this->soaptimeout + 20);
-
+            //dont use security check
             curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, 0);
-
             curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($oCurl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
             curl_setopt($oCurl, CURLOPT_FAILONERROR, 0);
             curl_setopt($oCurl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
             curl_setopt($oCurl, CURLOPT_USERPWD, $this->user.":".$this->password);
-
             curl_setopt($oCurl, CURLOPT_POST, 1);
             curl_setopt($oCurl, CURLOPT_POSTFIELDS, $envelope);
-
             curl_setopt($oCurl, CURLOPT_HEADER, 1);
             curl_setopt($oCurl, CURLOPT_HTTPHEADER, $headers);
-
             curl_setopt($oCurl, CURLOPT_VERBOSE, 1);
             curl_setopt($oCurl, CURLOPT_CERTINFO, 1);
             
@@ -431,7 +439,7 @@ class Atende
             $responseBody = substr($response, $headsize);
             if (substr($response, -3) !== substr($responseBody, -3)) {
                 throw new \RuntimeException(
-                    'A terminação dos dados compactados está diferente'
+                    'A terminação dos dados compactados está diferente! Não foi possivel extrair os dados.'
                 );
             }
             $marker = substr($responseBody, 0, 3);
@@ -445,14 +453,14 @@ class Atende
                 $responseHead . "\n" . $responseBody,
                 $this->debugmode
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
         if ($this->soaperror != '') {
             throw new \RuntimeException($this->soaperror);
         }
         if ($httpcode != 200) {
-            throw new \RuntimeException($responseHead);
+            throw new \RuntimeException($responseHead . '\n' . $responseBody);
         }
         return $responseBody;
     }
