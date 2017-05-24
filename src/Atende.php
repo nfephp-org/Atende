@@ -344,14 +344,18 @@ class Atende
         $tipo = null,
         $codigoRegime = null
     ) {
+        $param = "";
+        $tagPagina = "";
+        if (!empty($pagina)) {
+            $param = "Paginado";
+            $tagPagina = "<pagina xsi:type=\"xsd:int\">$pagina</pagina>";
+        }
         $message = "<net:$action "
         . "soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
-        . "<parametro xsi:type=\"net:ParametrosAvaliacaoAtuarial\">"
+        . "<parametro xsi:type=\"net:ParametrosAvaliacaoAtuarial$param\">"
         . "<codigoCliente xsi:type=\"xsd:int\">$this->codcidade</codigoCliente>"
         . "<mesAno xsi:type=\"xsd:int\">$anomes</mesAno>";
-        if (!empty($pagina)) {
-            $message .= "<pagina xsi:type=\"xsd:int\">$pagina</pagina>";
-        }
+        $message .= $tagPagina;
         if (!empty($cpf)) {
             $message .= "<cpf xsi:type=\"xsd:string\">$cpf</cpf>";
         }
