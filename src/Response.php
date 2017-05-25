@@ -50,7 +50,7 @@ class Response
             'infoDependente',
             'infoContribuicao',
             'infoContribuicaoAnalitica',
-            'infoContribuicao',
+            'infoAfastamento',
             'infoTempoContribuicao'
         ];
         $dom = new \DOMDocument('1.0', 'UTF-8');
